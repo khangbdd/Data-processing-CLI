@@ -2,33 +2,36 @@
 import argparse
 from read_csv import *
 import data_missing_handler
+import duplication_hanlder
 import chaining_func
 from functools import partial
+from save_csv import *
 
 parser = argparse.ArgumentParser(description='Data processing tools for csv file')
 
 parser.add_argument('input_file', help='Need process csv file path')
-parser.add_argument('output_file', help='Processed csv file path')
+parser.add_argument('output_path', help='Processed csv file path')
 parser.add_argument('--pipe', help='algorithm will be used')
 
 args = parser.parse_args()
 
 print('Input file: {}'.format(args.input_file))
-print('Output file: {}'.format(args.output_file))
+print('Output file: {}'.format(args.output_path))
 print('Pipeline: {}'.format(args.pipe))
 
 header, rows = getData(args.input_file)
 if rows is None:
     print("Somethings wrong happened")
 else:
-    HANLDE_MISSING_VALUE_SERVICE = "mv"
-
+    HANDLE_MISSING_VALUE_SERVICE = "mv"
+    HANDLE_DUPLICATED_VALUE_SERVICE = "dp"
     def classifyService(serviceString, data):
         serviceInfo = str(serviceString).split(",")
         serviceName = serviceInfo[0]
-        if serviceName == HANLDE_MISSING_VALUE_SERVICE:
+        if serviceName == HANDLE_MISSING_VALUE_SERVICE:
             return data_missing_handler.handleMissingValue(data, serviceInfo)
-        
+        if serviceName == HANDLE_DUPLICATED_VALUE_SERVICE:
+            return duplication_hanlder.removeDuplication(data) 
     def processService():
         serviceStrings = str(args.pipe).split("-")
         if len(serviceStrings) == 0:
@@ -50,3 +53,5 @@ else:
     print("*******************************")
     for i in rows:
         print(i)
+    saveProgressedData(args.output_path, header, list(processService()))
+    
