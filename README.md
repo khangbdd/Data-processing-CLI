@@ -5,11 +5,11 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 
 ## Features
 ### Available Features ✅
-1. **Load Data** (`--load <file_path>`)  
+1. **Load Data**
    Load a dataset from a specified CSV file.
 
-2. **Handle Missing Values**
-   - **Remove Missing Values** (`mv`)  
+2. **Handle Missing Values** (`mv`)
+   - **Remove Missing Values** (`rm`)  
      Removes rows containing any missing values.
    - **Fill with Default** (`fl_<value>`)  
      Fills missing values with a specified default value (e.g., `fl_0` fills missing values with 0).
@@ -17,13 +17,11 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 3. **Remove Duplicates** (`dp`)  
    Removes duplicate rows from the dataset.
 
-4. **Normalization & Standardization**
+4. **Normalization & Standardization** (`fs`)
    - **Normalize** (`nm`)  
-     Scales data to a 0-1 range.
-   - **Standardize** (`fs`)  
-     Scales data to have a mean of 0 and a standard deviation of 1.
+   - **Standardize** (`sd`)  
 
-5. **Export Processed File** (`--export <output_path>`)  
+5. **Export Processed File**
    Saves the processed dataset to a specified CSV file.
 
 6. **CLI Supports Chaining**  
@@ -52,26 +50,23 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 - `_` separates service and parameter (e.g., `fl_0` means fill missing values with 0).
 
 ### Example Commands
-#### Load and clean missing data:
+#### Load -> missing data -> feature scaling all feature with normalization -> handle suplication -> Output to path:
 ```sh
-/usr/local/bin/python3 data_tools.py --pipe="mv,fl_0-fs,nm-dp" input.csv output.csv
+/usr/local/bin/python3 data_tools.py --pipe="mv,fl_0-fs,nm-dp" ../../input.csv ../../output_directory
 ```
 
 #### Fill missing values and remove duplicates:
 ```sh
-/usr/local/bin/python3 data_tools.py --pipe="fl_0-dp" input.csv output.csv
+/usr/local/bin/python3 data_tools.py --pipe="mv,fl_100-dp" input.csv output.csv
 ```
 
-#### Normalize specific columns and export:
+#### Standardilize specific columns (Age and Glucose) and export:
 ```sh
-/usr/local/bin/python3 data_tools.py --pipe="nm" input.csv output.csv
+/usr/local/bin/python3 data_tools.py --pipe="fs,sd_Age_Glucose" ../../input.csv ../../output_directory
 ```
 
 ## Installation
-Ensure Python is installed, then install dependencies:
-```sh
-pip install -r requirements.txt
-```
+Only need to ensure Python is installed. Not have any other dependencies.
 
 ## Contributing
 Contributions are welcome! Feel free to submit issues or pull requests.
