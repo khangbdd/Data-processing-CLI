@@ -57,7 +57,7 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 
 #### Fill missing values and remove duplicates:
 ```sh
-/usr/local/bin/python3 data_tools.py --pipe="mv,fl_100-dp" input.csv output.csv
+/usr/local/bin/python3 data_tools.py --pipe="mv,fl_100-dp" ../../input.csv ../../output_directory
 ```
 
 #### Standardilize specific columns (Age and Glucose) and export:
