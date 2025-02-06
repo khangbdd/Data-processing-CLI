@@ -1,4 +1,5 @@
 import math
+from utils import transpose
 
 def _normalize(featureData):
     floatFeatureData = [float(value) for value in featureData]
@@ -21,8 +22,6 @@ def scaleWithSomeFeatureOnly(action, header, featuresData, features):
         else:
             return value
     return [scaleIfNeed(index, value) for index, value in enumerate(featuresData)]
-
-def transpose(lst): return list(map(list, zip(*lst)))
 
 NORMALIZATION = "nm"
 STANDARDIZATION = "sd"

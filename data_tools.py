@@ -4,7 +4,8 @@ from read_csv import *
 import data_missing_handler
 import duplication_handler
 import feature_scaling_handler
-import chaining_func
+import outlier_handler
+from utils import compose
 from functools import partial
 from save_csv import *
 
@@ -27,6 +28,7 @@ else:
     HANDLE_MISSING_VALUE_SERVICE = "mv"
     HANDLE_DUPLICATED_VALUE_SERVICE = "dp"
     HANDLE_FEATURE_SCALING_SERVICE = "fs"
+    HANDLE_OUTLIER_SERVICE = "ol"
     def classifyService(serviceString, data):
         serviceInfo = str(serviceString).split(",")
         serviceName = serviceInfo[0]
@@ -36,17 +38,19 @@ else:
             return duplication_handler.removeDuplication(data)
         if serviceName == HANDLE_FEATURE_SCALING_SERVICE:
             return feature_scaling_handler.featureScale(header, data, serviceInfo)
+        if serviceName == HANDLE_OUTLIER_SERVICE:
+            return outlier_handler.handleOutlier(header, data, serviceInfo)
     def processService():
         serviceStrings = str(args.pipe).split("-")
         if len(serviceStrings) == 0:
             print("Have nothing to do !")
             return []
-        chain = chaining_func.compose(
+        chain = compose(
                 partial(classifyService, serviceStrings[0]), 
                 lambda rows: rows # do nothing, this act as init state
         )
         for serviceString in serviceStrings[1:]:
-            chain = chaining_func.compose(
+            chain = compose(
                 partial(classifyService, serviceString), 
                 chain
             )
@@ -58,4 +62,3 @@ else:
     for i in rows:
         print(i)
     saveProgressedData(args.output_path, header, list(processService()))
-    
