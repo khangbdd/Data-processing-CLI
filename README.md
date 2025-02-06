@@ -27,9 +27,13 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 6. **CLI Supports Chaining**  
    Multiple processing steps can be applied in a single command.
 
+7. **Handle Outliers by Z-score** (`ol`)
+   - Remove outliers (`rm`)
+   - Replace outliers (`rp`)
+   You could choose feature to apply check outlier. (e.g., ol,rm_Age_Glucose)
+   If you not give the feature to apply, then the tool will check outlier for all feature in csv.
+
 ### Planned Features 🚧
-1. **Handle Outliers**
-   - Remove or replace extreme values.
 
 2. **Convert Data Types**
    - Change data types (e.g., string to integer, float to categorical).
