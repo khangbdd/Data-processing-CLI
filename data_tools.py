@@ -5,6 +5,7 @@ import data_missing_handler
 import duplication_handler
 import feature_scaling_handler
 import outlier_handler
+import encoding_handler
 from utils import compose
 from functools import partial
 from save_csv import *
@@ -29,6 +30,7 @@ else:
     HANDLE_DUPLICATED_VALUE_SERVICE = "dp"
     HANDLE_FEATURE_SCALING_SERVICE = "fs"
     HANDLE_OUTLIER_SERVICE = "ol"
+    HANDLE_ENCODING_SERVICE = "ec"
     def classifyService(serviceString, data):
         serviceInfo = str(serviceString).split(",")
         serviceName = serviceInfo[0]
@@ -40,6 +42,8 @@ else:
             return feature_scaling_handler.featureScale(header, data, serviceInfo)
         if serviceName == HANDLE_OUTLIER_SERVICE:
             return outlier_handler.handleOutlier(header, data, serviceInfo)
+        if serviceName == HANDLE_ENCODING_SERVICE:
+            return encoding_handler.handleEncoding(header, data, serviceInfo)
     def processService():
         serviceStrings = str(args.pipe).split("-")
         if len(serviceStrings) == 0:
