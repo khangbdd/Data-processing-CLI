@@ -49,7 +49,7 @@ Will throw a request to add a feature name as params for `oh`.
 This will work.
 
 ### Planned Features 🚧
-None all plan features finished. (Will update more if have a request)
+None, all plan features finished. (Will update more if have a request)
 
 ## Command Structure
 ### General Syntax
