@@ -35,10 +35,7 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
 
 ### Planned Features 🚧
 
-2. **Convert Data Types**
-   - Change data types (e.g., string to integer, float to categorical).
-
-3. **Encode Categorical Data**
+1. **Encode Categorical Data**
    - **One-Hot Encoding**
    - **Ordinal Encoding**
 
