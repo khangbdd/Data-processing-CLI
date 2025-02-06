@@ -33,11 +33,23 @@ This CLI tool provides a streamlined way to preprocess structured data files (CS
    You could choose feature to apply check outlier. (e.g., ol,rm_Age_Glucose)
    If you not give the feature to apply, then the tool will check outlier for all feature in csv.
 
-### Planned Features 🚧
+8. **Encode Categorical Data** (`ec`)
+   - **One-Hot Encoding** (`oh`)
+   - **Ordinal Encoding** (`od`)
+Please noted that you need to provide feature name as parameter to start encoding process or the tools'll raise a issue.
+Example:
+```sh
+/usr/local/bin/python3 data_tools.py --pipe="mv,fl_0-fs,nm-ec,oh" ../../input.csv ../../output_directory
+```
+Will throw a request to add a feature name as params for `oh`.
 
-1. **Encode Categorical Data**
-   - **One-Hot Encoding**
-   - **Ordinal Encoding**
+```sh
+/usr/local/bin/python3 data_tools.py --pipe="mv,fl_0-fs,nm-ec,oh_Age_Glucose" ../../input.csv ../../output_directory
+```
+This will work.
+
+### Planned Features 🚧
+None all plan features finished. (Will update more if have a request)
 
 ## Command Structure
 ### General Syntax
