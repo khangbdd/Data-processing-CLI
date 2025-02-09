@@ -15,7 +15,7 @@ def _standardize(featureData):
     std = math.sqrt(sum([(value - mean)**2 for value in floatFeatureData])/(size - 1))
     return map(lambda value: (value - mean)/std, floatFeatureData)
 
-def scaleWithSomeFeatureOnly(action, header, featuresData, features):
+def _scaleWithSomeFeatureOnly(action, header, featuresData, features):
     def scaleIfNeed(index, value):
         if header[index] in features:
             return action(value)
@@ -34,11 +34,11 @@ def featureScale(header, rows, serviceInfo):
         if features == []:
             return transpose(list(map(_normalize, featuresData)))
         else:
-            return transpose(scaleWithSomeFeatureOnly(_normalize, header, featuresData, features))
+            return transpose(_scaleWithSomeFeatureOnly(_normalize, header, featuresData, features))
     if subserviceName == STANDARDIZATION:
         if features == []:
             return transpose(list(map(_standardize, featuresData)))
         else:
-            return transpose(scaleWithSomeFeatureOnly(_standardize, header, featuresData, features))
+            return transpose(_scaleWithSomeFeatureOnly(_standardize, header, featuresData, features))
     print("Service {} is invalid, go on with normalization".format(subserviceName))
-    return map(_normalize, featuresData)
+    return transpose(list(map(_normalize, featuresData)))

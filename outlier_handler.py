@@ -57,9 +57,11 @@ def handleOutlier(header, rows, serviceInfo):
         precalculatedDict = _precalculateForNeededFeatures(header, featuresData, header)
     else:
         precalculatedDict = _precalculateForNeededFeatures(header, featuresData, features)
+    removedOutlier = filter(partial(_isARowNotOutlier,precalculatedDict, header), rows)
     if subserviceName == REMOVING:
         return filter(partial(_isARowNotOutlier,precalculatedDict, header), rows)
     if subserviceName == REPLACING:
+        precalculatedDict
         return [[_replacingOulier(index, value, precalculatedDict, header) for index, value in enumerate(row)] for row in rows]
     print("Service {} is invalid, go on with replacing.".format(subserviceName))
     return [[_replacingOulier(index, value, precalculatedDict, header) for index, value in enumerate(row)] for row in rows]
